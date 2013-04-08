@@ -1,0 +1,15 @@
+New in Version 0.70 (compared to 0.65):
+---------------------------------------
+- package renamed to gplm for publication on CRAN
+
+New in Version 0.65 (compared to 0.62):
+---------------------------------------
+
+- new function 'sgplm1' for spline-based GPLM estimation (just for
+  1-dimensional nonparametric component functions)
+
+- df (approximate degrees of freedom) added in 'kreg', 'kgplm'
+
+- aic (Akaike's information criterion) added in 'kgplm'
+
+- function 'backfit' added for backfitting
