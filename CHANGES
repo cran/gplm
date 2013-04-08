@@ -1,9 +1,12 @@
-New in Version 0.70 (compared to 0.65):
----------------------------------------
+New in Version 0.7-x (compared to 0.65):
+------------------------------------------------------------------
 - package renamed to gplm for publication on CRAN
 
+- call to columnwise sd updated acc. to R-3.0.0
+
+
 New in Version 0.65 (compared to 0.62):
----------------------------------------
+-------------------------------------------------------------------
 
 - new function 'sgplm1' for spline-based GPLM estimation (just for
   1-dimensional nonparametric component functions)

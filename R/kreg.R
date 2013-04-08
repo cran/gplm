@@ -70,7 +70,7 @@
     }else{       ## gaussian
       fac <- 1
     }
-    s <- rbind( sd(x), diff( apply(x,2,quantile,c(0.25,0.75)) )/1.349 )
+    s <- rbind( apply(x,2,sd), diff( apply(x,2,quantile,c(0.25,0.75)) )/1.349 )
     s <- apply(s,2,min)
     bandwidth <- fac *s* n^(-1/(d+4)) ## Scott's ROT
   }
