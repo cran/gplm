@@ -10,7 +10,7 @@ kernel.constants(kernel = "biweight", d = 1, product = TRUE)
 \arguments{
   \item{kernel}{text string, see \code{\link{kernel.function}}}
   \item{d}{integer (dimension of the kernel, d <= 4)}
-  \item{product}{(if d>1) product or radially symmetric kernel}
+  \item{product}{(if d>1) product or spherical kernel}
 }
 \details{
   The constants which are calculated are the second moment,

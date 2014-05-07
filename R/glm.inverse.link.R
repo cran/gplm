@@ -1,45 +1,42 @@
-"glm.link" <- function(eta, family="gaussian", link="identity", k=1){
+"glm.inverse.link" <- function(mu, family="gaussian", link="identity", k=1){
 
   if (family=="bernoulli"){
     if (link=="logit"){
-      mu<- 1/(1+exp(-eta))
-      mu <- mu+ 1e-16*(mu==0) -1e-16*(mu==1)
+      eta <- log(mu/(1-mu))
     }
     if (link=="probit"){
-      mu <- pnorm(eta)
-      mu <- mu+ 1e-16*(mu==0) -1e-16*(mu==1)
+      eta <- qnorm(mu)
     }
   }
 
   if (family=="gaussian"){
     if (link=="identity"){
-      mu <- eta
+      eta <- mu
     }
   }
 
   if (link=="log"){  ## gaussian+poisson
-    mu <- exp(eta)
+    eta <- log(mu)
   }
 
   if (family=="gamma"){
     if (link=="reciprocal"){
-      mu <- 1/eta
+      eta <- 1/mu
     }
   }
 
   if (family=="inverse.gaussian"){
     if (link=="quadratic.reciprocal"){
-      mu <- 1/sqrt(eta)
+      eta <- 1/(mu*mu)
     }
   }
 
   if (family=="negative.binomial"){
     if (link=="log"){
-      e <- exp(eta)
-      mu <- e/(k*(1-e))
+      eta <- log(k*mu/(1+mu))
     }
   }
 
-  return(mu)
+  return(eta)
 }
 

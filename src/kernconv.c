@@ -2,7 +2,7 @@
 #include <math.h>
 #include <Rinternals.h>
 
-/* Compile into shared library: gcc -shared -O2 -o kernconv.so kernconv.c */
+/* Compile into shared library: gcc -shared -O2 -fPIC -o kernconv.so kernconv.c */
 /*                          or: gcc -G -O2 -o kernconv.so kernconv.c      */
 
 double i_pnorm(double x)
@@ -47,7 +47,7 @@ int gamm(double *x, double *l) // Calculate exp(log(gamma(xx))) a la NR
 double i_skernel(int d, double *u, int p, int q)  // internal spherical kernel
 { 
     const double pi = 3.141592653589793; 
-    int i; double c, v = 1.0, r = 0.0, pp, qq; 
+    int i; double volume, c, v = 1.0, r = 0.0, pp, qq; 
     pp=p; qq=q;
     
     if(p>0)                       // support [-1,1]
@@ -58,7 +58,12 @@ double i_skernel(int d, double *u, int p, int q)  // internal spherical kernel
 	}
 	r = 1 - pow(sqrt(r),pp);
 	// printf ("r: %f\n", r);
-	c = pp*i_gamm(0.5*d)*i_gamm(1.0+qq+d/pp) / ( 2.0*pow(pi,0.5*d)*i_gamm(1.0+qq)*i_gamm(d/pp) );
+	volume = pow(pi,0.5*d)/i_gamm(0.5*d+1.0) ;
+	if(p==2 && q==2){ c = 0.125*(2.0+d)*(4.0+d)/volume; }           // biweight 
+	if(p==2 && q==1){ c = 0.5*(2.0+d)/volume; }                     // epanechnikov
+	if(p==2 && q==3){ c = (2.0+d)*(4.0+d)*(6.0+d)/(48.0*volume); }  // triweight
+	if(p==1 && q==1){ c = (1.0+d)/volume; }                         // triangle
+	if(q==0){         c = 1.0/volume; }                             // uniform
 	v = c * pow(r,qq);
     }
     else                         // gaussian
@@ -91,7 +96,7 @@ double i_pkernel(int d, double *u, int p, int q)  // internal product kernel
       for (i=0; i<d; i++)
       { 
 	  r = fabs(u[i]); if (r>1.0) return 0.0;
-	  if(p==2 && q==2){ r = 1.0-r*r; r = 0.9375*r*r; }    // biweight or quartic 
+	  if(p==2 && q==2){ r = 1.0-r*r; r = 0.9375*r*r; }    // biweight
 	  if(p==2 && q==1){ r = 1.0-r*r; r = 0.75*r; }        // epanechnikov
 	  if(p==2 && q==3){ r = 1.0-r*r; r = 1.09375*r*r*r; } // triweight
 	  if(p==1 && q==1){ r = 1.0-r; }                      // triangle
@@ -134,7 +139,8 @@ int convol(double *dim, double *x, double *y, double *xg, double *r)
   int pp, qq, prod; long i, j, k, istart=0, nn, mm, dd, cc;
   double *nom, *kern, w, thresh=1.0;
 
-  nn=*(dim+0); mm=*(dim+1); dd=*(dim+2); cc=*(dim+3); pp=*(dim+4); qq=*(dim+5); prod=*(dim+6);
+  nn=*(dim+0); mm=*(dim+1); dd=*(dim+2); cc=*(dim+3); 
+  pp=*(dim+4); qq=*(dim+5); prod=*(dim+6);
   //printf("cc: %i\n",cc);
 
   nom   = (double *) malloc(sizeof(double)*cc);

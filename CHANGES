@@ -1,18 +1,20 @@
-New in Version 0.7-x (compared to 0.65):
+New in Version 0.7-2 (compared to 0.7-1):
+------------------------------------------------------------------
+- stability changes in 'glm.lld', 'glm.link', 'kgplm', 'sgplm1'
+- 'bandwidth.scott' added for rule-of-thumb bandwidth choice
+- updated implementation of 'kernel.function', 'kernel.constants'
+  and the kernel C-function in kernconv.c
+- vignette added (introduction to estimation, set of examples)
+
+New in Version 0.7-1 (compared to 0.65):
 ------------------------------------------------------------------
 - package renamed to gplm for publication on CRAN
-
 - call to columnwise sd updated acc. to R-3.0.0
-
 
 New in Version 0.65 (compared to 0.62):
 -------------------------------------------------------------------
-
 - new function 'sgplm1' for spline-based GPLM estimation (just for
   1-dimensional nonparametric component functions)
-
 - df (approximate degrees of freedom) added in 'kreg', 'kgplm'
-
 - aic (Akaike's information criterion) added in 'kgplm'
-
-- function 'backfit' added for backfitting
+- function 'kbackfit' added for backfitting

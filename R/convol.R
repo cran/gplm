@@ -1,4 +1,5 @@
 "convol" <- function(x,h=1,grid=NULL,y=1,w=1,p=2,q=2,product=TRUE,sort=TRUE){
+
   x  <- as.matrix(x)        ## nxd
   h  <- as.matrix(h)        ## scalar / 1xd ( future: nx1 / nxd )
   w  <- as.matrix(w)        ## scalar / nx1 / 1xm / nxm

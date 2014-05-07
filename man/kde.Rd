@@ -21,7 +21,7 @@ kde(x, bandwidth = NULL, grid = TRUE, kernel = "biweight",
   The kernel density estimator is calculated as
   \eqn{\frac{1}{n} \sum_i K_h(x_i - grid_{j})} for
   \eqn{i=1,...,n} and \eqn{j=1,...,m}. The default
-  bandwidth is computed by Scott's rule of thumb
+  bandwidth vector is computed by Scott's rule of thumb
   (adapted to the chosen kernel function).
 
 }
@@ -29,7 +29,7 @@ kde(x, bandwidth = NULL, grid = TRUE, kernel = "biweight",
   List with components:
   \item{x}{m x d matrix, where density has been calculated}
   \item{y}{m x 1 vector, density estimates}
-  \item{bandwidth}{bandwidth used for calculation}
+  \item{bandwidth}{bandwidth vector used for calculation}
   \item{rearrange}{if sort=TRUE, index to rearrange x and y to its original order.}
 }
 %%\references{}

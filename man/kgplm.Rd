@@ -5,11 +5,11 @@
   Fits a generalized partial linear model (kernel-based)
   using the (generalized) Speckman estimator or backfitting (in the
   generalized case combined with local scoring) for two additive
-  component functions. 
+  component functions.
 }
 \usage{
 kgplm(x, t, y, h, family, link,
-          b.start=NULL, m.start=NULL, grid = NULL, m.grid.start = NULL, 
+          b.start=NULL, m.start=NULL, grid = NULL, 
           offset = 0, method = "speckman", sort = TRUE, weights = 1,
           weights.trim = 1, weights.conv = 1, max.iter = 25, eps.conv = 1e-8,
           kernel = "biweight", kernel.product = TRUE, verbose = FALSE)
@@ -27,7 +27,6 @@ kgplm(x, t, y, h, family, link,
   \item{b.start}{p x 1 vector, start values for linear part}
   \item{m.start}{n x 1 vector, start values for nonparametric part}
   \item{grid}{m x q matrix, where to calculate the nonparametric function (default = t)}
-  \item{m.grid.start}{m x 1 vector, start values for nonparametric part on grid}
   \item{offset}{offset}
   \item{method}{"speckman" or "backfit"}
   \item{sort}{logical, TRUE if data need to be sorted}
@@ -54,18 +53,18 @@ kgplm(x, t, y, h, family, link,
   \item{aic}{Akaike's information criterion}
 }
 \references{
-  Mueller, M. (2001)
+  Mueller, M. (2001).
   Estimation and testing in generalized partial linear models -- A
-  comparative study. \emph{Statistics and Computing,} 11:299--309.
+  comparative study. \emph{Statistics and Computing}, 11:299--309.
 
-  Hastie, T. and Tibshirani, R. (1990)
-  \emph{Generalized Additive Models.} London: Chapman and Hall.
+  Hastie, T. and Tibshirani, R. (1990).
+  \emph{Generalized Additive Models}. London: Chapman and Hall.
 }
 \author{Marlene Mueller}
 %%\note{}
 \seealso{\code{\link{kernel.function}}, \code{\link{kreg}}}
 \examples{
-  ## data 
+  ## data
   n <- 1000; b <- c(1,-1); rho <- 0.7
   m <- function(t){ 1.5*sin(pi*t) }
   x1 <- runif(n,min=-1,max=1); u  <- runif(n,min=-1,max=1)

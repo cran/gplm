@@ -16,7 +16,7 @@ kernel.function(u, kernel = "biweight", product = TRUE)
 }
 \details{
   The kernel parameter is  a text string specifying
-  the univariate kernel function which is either the gaussian pdf 
+  the univariate kernel function which is either the gaussian pdf
   or proportional to \eqn{(1-|u|^p)^q}.
   Possible text strings are "triangle" (p=q=1),
   "uniform" (p=1, q=0), "epanechnikov" (p=2, q=1),
@@ -25,9 +25,9 @@ kernel.function(u, kernel = "biweight", product = TRUE)
 
   The multivariate kernels are obtained by a
   product of unvariate kernels \eqn{K(u_1)...K(u_d)}
-  or by a radially symmetric (spherical) kernel
+  or by a spherical (radially symmetric) kernel
   proportional to \eqn{K(||u||)}. (The resulting kernel
-  is a density, i.e. integrates to 1.) 
+  is a density, i.e. integrates to 1.)
 }
 \value{
   n x 1 vector of kernel weights

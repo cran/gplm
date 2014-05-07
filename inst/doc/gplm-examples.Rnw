@@ -1,0 +1,1204 @@
+\documentclass[12pt,a4paper]{scrartcl}
+
+\parskip5pt
+\parindent0pt
+\textwidth17cm
+\textheight24.5cm
+\hoffset-0.5cm
+\voffset-0.5cm
+\renewcommand{\baselinestretch}{1.0}
+
+\usepackage{natbib}  
+\usepackage{color}
+\usepackage{graphicx}    
+\usepackage[english]{babel}
+%%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{wasysym}
+%%\usepackage{MM}
+\usepackage{comment}
+\usepackage[colorlinks,bookmarks,bookmarksopen=true]{hyperref}
+
+\hypersetup{citecolor=darkblue}
+\hypersetup{linkcolor=darkblue}
+\hypersetup{urlcolor=blue}
+
+\bibliographystyle{dcu}
+\SweaveOpts{eps=true}
+
+%\VignetteIndexEntry{An Introduction to the Estimation of GPLMs and Data Examples for the R gplm Package}
+%\VignetteDepends{gplm, AER}
+%\VignetteKeyword{kernel estimation}
+%\VignetteKeyword{partial linear model}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Letters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Balpha}{{\boldsymbol{\alpha}}}
+\newcommand{\Bbeta}{{\boldsymbol{\beta}}}
+\newcommand{\Bgamma}{{\boldsymbol{\gamma}}}
+\newcommand{\Bdelta}{{\boldsymbol{\delta}}}
+\newcommand{\Bmu}{{\boldsymbol{\mu}}}
+\newcommand{\Beta}{{\boldsymbol{\eta}}}
+\newcommand{\Blambda}{{\boldsymbol{\lambda}}}
+\newcommand{\Bvarepsilon}{{\boldsymbol{\varepsilon}}}
+
+\newcommand{\Ba}{{\boldsymbol{a}}}
+\newcommand{\Bb}{{\boldsymbol{b}}}
+\newcommand{\Bc}{{\boldsymbol{c}}}
+\newcommand{\Bd}{{\boldsymbol{d}}}
+\newcommand{\Be}{{\boldsymbol{e}}}
+\newcommand{\Bf}{{\boldsymbol{f}}}
+\newcommand{\Bg}{{\boldsymbol{g}}}
+\newcommand{\Bh}{{\boldsymbol{h}}}
+\newcommand{\Bi}{{\boldsymbol{i}}}
+\newcommand{\Bj}{{\boldsymbol{j}}}
+\newcommand{\Bk}{{\boldsymbol{k}}}
+\newcommand{\Bl}{{\boldsymbol{l}}}
+\newcommand{\Bm}{{\boldsymbol{m}}}
+\newcommand{\Bn}{{\boldsymbol{n}}}
+\newcommand{\Bo}{{\boldsymbol{o}}}
+\newcommand{\Bp}{{\boldsymbol{p}}}
+\newcommand{\Bq}{{\boldsymbol{q}}}
+\newcommand{\Br}{{\boldsymbol{r}}}
+\newcommand{\Bs}{{\boldsymbol{s}}}
+\newcommand{\Bt}{{\boldsymbol{t}}}
+\newcommand{\Bu}{{\boldsymbol{u}}}
+\newcommand{\Bv}{{\boldsymbol{v}}}
+\newcommand{\Bw}{{\boldsymbol{w}}}
+\newcommand{\Bx}{{\boldsymbol{x}}}
+\newcommand{\By}{{\boldsymbol{y}}}
+\newcommand{\Bz}{{\boldsymbol{z}}}
+\newcommand{\Bell}{{\boldsymbol{\ell}}}
+\newcommand{\Bnull}{{\boldsymbol{0}}}
+\newcommand{\Bone}{{\boldsymbol{1}}}
+%
+\newcommand{\BA}{{\boldsymbol{A}}}
+\newcommand{\BB}{{\boldsymbol{B}}}
+\newcommand{\BC}{{\boldsymbol{C}}}
+\newcommand{\BD}{{\boldsymbol{D}}}
+\newcommand{\BE}{{\boldsymbol{E}}}
+\newcommand{\BF}{{\boldsymbol{F}}}
+\newcommand{\BG}{{\boldsymbol{G}}}
+\newcommand{\BH}{{\boldsymbol{H}}}
+\newcommand{\BI}{{\boldsymbol{I}}}
+\newcommand{\BJ}{{\boldsymbol{J}}}
+\newcommand{\BK}{{\boldsymbol{K}}}
+\newcommand{\BL}{{\boldsymbol{L}}}
+\newcommand{\BM}{{\boldsymbol{M}}}
+\newcommand{\BN}{{\boldsymbol{N}}}
+\newcommand{\BO}{{\boldsymbol{O}}}
+\newcommand{\BP}{{\boldsymbol{P}}}
+\newcommand{\BQ}{{\boldsymbol{Q}}}
+\newcommand{\BR}{{\boldsymbol{R}}}
+\newcommand{\BS}{{\boldsymbol{S}}}
+\newcommand{\BT}{{\boldsymbol{T}}}
+\newcommand{\BU}{{\boldsymbol{U}}}
+\newcommand{\BV}{{\boldsymbol{V}}}
+\newcommand{\BW}{{\boldsymbol{W}}}
+\newcommand{\BX}{{\boldsymbol{X}}}
+\newcommand{\BY}{{\boldsymbol{Y}}}
+\newcommand{\BZ}{{\boldsymbol{Z}}}
+%
+\newcommand{\MSigma}{{\boldsymbol{\Sigma}}}
+\newcommand{\MA}{{\mathbf{A}}}
+\newcommand{\MB}{{\mathbf{B}}}
+\newcommand{\MC}{{\mathbf{C}}}
+\newcommand{\MD}{{\mathbf{D}}}
+\newcommand{\ME}{{\mathbf{E}}}
+\newcommand{\MF}{{\mathbf{F}}}
+\newcommand{\MG}{{\mathbf{G}}}
+\newcommand{\MH}{{\mathbf{H}}}
+\newcommand{\MI}{{\mathbf{I}}}
+\newcommand{\MJ}{{\mathbf{J}}}
+\newcommand{\MK}{{\mathbf{K}}}
+\newcommand{\ML}{{\mathbf{L}}}
+\newcommand{\MM}{{\mathbf{M}}}
+\newcommand{\MN}{{\mathbf{N}}}
+\newcommand{\MO}{{\mathbf{O}}}
+\newcommand{\MP}{{\mathbf{P}}}
+\newcommand{\MQ}{{\mathbf{Q}}}
+\newcommand{\MR}{{\mathbf{R}}}
+\newcommand{\MS}{{\mathbf{S}}}
+\newcommand{\MT}{{\mathbf{T}}}
+\newcommand{\MU}{{\mathbf{U}}}
+\newcommand{\MV}{{\mathbf{V}}}
+\newcommand{\MW}{{\mathbf{W}}}
+\newcommand{\MX}{{\mathbf{X}}}
+\newcommand{\MY}{{\mathbf{Y}}}
+\newcommand{\MZ}{{\mathbf{Z}}}
+%
+\newcommand{\CA}{{\mathcal{A}}}
+\newcommand{\CB}{{\mathcal{B}}}
+\newcommand{\CC}{{\mathcal{C}}}
+\newcommand{\CD}{{\mathcal{D}}}
+\newcommand{\CE}{{\mathcal{E}}}
+\newcommand{\CF}{{\mathcal{F}}}
+\newcommand{\CG}{{\mathcal{G}}}
+\newcommand{\CH}{{\mathcal{H}}}
+\newcommand{\CI}{{\mathcal{I}}}
+\newcommand{\CJ}{{\mathcal{J}}}
+\newcommand{\CK}{{\mathcal{K}}}
+\newcommand{\CL}{{\mathcal{L}}}
+\newcommand{\CM}{{\mathcal{M}}}
+\newcommand{\CN}{{\mathcal{N}}}
+\newcommand{\CO}{{\mathcal{O}}}
+\newcommand{\CP}{{\mathcal{P}}}
+\newcommand{\CQ}{{\mathcal{Q}}}
+\newcommand{\CR}{{\mathcal{R}}}
+\newcommand{\CS}{{\mathcal{S}}}
+\newcommand{\CT}{{\mathcal{T}}}
+\newcommand{\CU}{{\mathcal{U}}}
+\newcommand{\CV}{{\mathcal{V}}}
+\newcommand{\CW}{{\mathcal{W}}}
+\newcommand{\CX}{{\mathcal{X}}}
+\newcommand{\CY}{{\mathcal{Y}}}
+\newcommand{\CZ}{{\mathcal{Z}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Figure + Table
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{5}
+\setcounter{totalnumber}{5}
+\renewcommand{\topfraction}{1}
+\renewcommand{\bottomfraction}{1}
+\renewcommand{\textfraction}{0}
+\renewcommand{\floatpagefraction}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Math
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\stackrelunder}[3]{\mathrel{\mathop{#2}\limits_{#3}^{#1}}}
+\newcommand{\conv}[2]{\mathrel{\mathop{\rightarrow}\limits_{#2}^{#1}}}
+\DeclareMathOperator{\AR}{AR}
+\DeclareMathOperator{\AUC}{AUC}
+\DeclareMathOperator{\Ind}{I}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Bias}{Bias}
+\DeclareMathOperator{\Med}{Med}
+\DeclareMathOperator{\MSE}{MSE}
+\DeclareMathOperator{\ISE}{ISE}
+\DeclareMathOperator{\MISE}{MISE}
+\DeclareMathOperator{\AMISE}{AMISE}
+\DeclareMathOperator{\MASE}{MASE}
+\DeclareMathOperator{\AMSE}{AMSE}
+\DeclareMathOperator{\ASE}{ASE}
+\DeclareMathOperator{\RSS}{RSS}
+\DeclareMathOperator{\df}{df}
+\DeclareMathOperator{\ESS}{ESS}
+\DeclareMathOperator{\TSS}{TSS}
+\DeclareMathOperator{\trace}{trace}
+\DeclareMathOperator{\Spur}{Spur}
+\DeclareMathOperator{\hess}{\CH}
+\DeclareMathOperator{\gradi}{\nabla}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\AIC}{AIC}
+\DeclareMathOperator{\BIC}{BIC}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{blue}{rgb}{0,0,1}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{green}{rgb}{0,1,0}
+\definecolor{orange}{rgb}{1,0.45,0.2}
+\definecolor{darkorange}{rgb}{1,0.55,0.0}
+\definecolor{seagreen}{rgb}{0.18,0.545,0.341}
+\definecolor{royalblue}{rgb}{0.255,0.412,0.882}
+\definecolor{darkblue}{rgb}{0,0,0.65}
+\definecolor{redviolet}{rgb}{0.816,0.125,0.565}
+\definecolor{lightblue}{rgb}{0.678,0.847,0.902}
+\definecolor{lightbluex}{rgb}{0.538,0.707,0.712}
+\definecolor{lightseagreen}{rgb}{0.125,0.698,0.667}
+\definecolor{magenta}{rgb}{1,0,1}
+\definecolor{pantonegreen}{rgb}{0.204,0.667,0.549}
+\definecolor{darkcyan}{rgb}{0,0.545,0.545}
+\definecolor{grey}{rgb}{0.5,0.5,0.5}
+
+\def\Black#1{{\begin{color}{black}#1\end{color}}}
+\def\Blue#1{{\begin{color}{blue}#1\end{color}}}
+\def\Red#1{{\begin{color}{red}#1\end{color}}}
+\def\Green#1{{\begin{color}{green}#1\end{color}}}
+\def\Orange#1{{\begin{color}{orange}#1\end{color}}}
+\def\Darkorange#1{{\begin{color}{darkorange}#1\end{color}}}
+\def\Seagreen#1{{\begin{color}{seagreen}#1\end{color}}}
+\def\Royalblue#1{{\begin{color}{royalblue}#1\end{color}}}
+\def\Darkblue#1{{\begin{color}{darkblue}#1\end{color}}}
+\def\Redviolet#1{{\begin{color}{redviolet}#1\end{color}}}
+\def\Lightblue#1{{\begin{color}{lightblue}#1\end{color}}}
+\def\Lightbluex#1{{\begin{color}{lightbluex}#1\end{color}}}
+\def\Lightseagreen#1{{\begin{color}{lightseagreen}#1\end{color}}}
+\def\Magenta#1{{\begin{color}{magenta}#1\end{color}}}
+\def\Lightseagreen#1{{\begin{color}{lightseagreen}#1\end{color}}}
+\def\Darkcyan#1{{\begin{color}{darkcyan}#1\end{color}}}
+\def\Grey#1{{\begin{color}{grey}#1\end{color}}}
+
+\def\Gray#1{{\begin{color}{gray}#1\end{color}}}
+\def\Triblack{{\large\bf{$\RHD$}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\title{An Introduction to the Estimation of GPLMs and Data Examples for
+  the R {\tt gplm} Package}
+\author{Marlene M\"uller}
+%%\date{{\normalsize This version: \today}}
+\date{{April 2014}}
+\maketitle
+
+\tableofcontents
+
+\clearpage
+\section{Introduction to (Generalized) Partial Linear Models}\label{sec_intro}
+
+The generalized linear model (GLM) is a regression model that can be written
+as
+$$E (Y\vert \BX) = G(\BX^T\beta ),$$
+where $ Y$ is the dependent variable, $\BX$ a vector of explanatory
+variables, $ \Bbeta$ the unknown parameter vector and $ G(\bullet)$ a known
+function (the inverse link function). The {\it generalized partial linear 
+model} (GPLM) extends this GLM by a nonparametric component:
+$$E(Y\vert \BX,\BT) = G\{\BX^T\beta + m(\BT)\}.$$ 
+Here, it is assumed that 
+the explanatory variables split into two vectors, $\BX$ and $\BT$. The
+vector $\BX$ denotes a  $p$-variate random vector which typically covers discrete 
+covariables or variables that are known to influence the index
+in a linear way. The vector $\BT$ is a $q$-variate random vector of 
+continuous covariables to be modeled in a nonparametric 
+way. As before, $\Bbeta=(\beta_1,\ldots,\beta_p)^T$ denotes a finite 
+dimensional unknown parameter, while $m(\bullet)$ is an unknown $q$-variate smooth function. 
+
+As for the GLM, the dependent variable $Y$ may originate from an exponential
+family. This means to  assume that the variance $\Var (Y\vert \BX,\BT)$ may depend
+on the predictor $ \BX^T\beta + m(T)$ and on a dispersion parameter $
+\sigma^2$, i.e.
+$$\Var (Y\vert \BX,\BT)= \sigma^2
+V\left(G\{X^T\beta + m(T)\}\right).$$
+%%Table~\ref{tab:distr} refers to a selection of 
+Possible distributions for $Y$ are for example \citep{mcc:nel:89}:
+\begin{itemize}
+\item discrete distributions: Bernoulli, Binomial, Poisson, Geometric,
+  Negative Binomial,
+\item continuous distributions: Normal, Exponential, Gamma, Inverse Normal.
+\end{itemize}
+
+It is easy to see that GPLM covers other semi-non-parametric models, 
+as for example:
+\begin{itemize}
+\item the {\it partial linear model} (PLM), i.e. 
+  $ Y = \BX^T\Bbeta + m(\BT)+ \varepsilon$ with $ \varepsilon \sim
+  N(0,\sigma^2)$ implying $ E (Y\vert \BX,\BT) = \BX^T\Bbeta +m(\BT)$ and $
+  \Var(Y\vert \BX,\BT) = \sigma^2$,
+  \citep{speck:88, rob:88b}.
+\item the {\it generalized additive model} (GAM) with a linear and a single
+    nonparametric component function, i.e.
+  $E(Y\vert \BX,\BT) = G\{\BX^T\beta +m(\BT)\}$ \citep{has:tib:90}.
+\end{itemize}
+    
+\begin{comment}
+\begin{table}
+  \begin{center}
+{\tabcolsep3pt
+{\small
+    \begin{tabular}{llcccccc}
+      \hline\hline
+      & Notation 
+        & $y\in$ 
+          & $b(\theta)$ 
+            & $\mu(\theta)$
+              & kanon.
+                & Varianz
+                  & $a(\psi)$\\%%[-2mm]
+   
+      & 
+        & 
+          & 
+            & 
+              & Link $\theta(\mu)$
+                & $V(\mu)$
+                  & \\
+      \hline
+    Bernoulli
+      & $B(1,\mu)$ 
+        & $\{0,1\}$
+          & $\log(1+e^\theta)$ 
+            & $\dfrac{e^\theta}{(1+e^\theta)}$ 
+              & logit 
+                & $\mu(1-\mu)$ 
+                  & 1 \\[2mm]
+    Binomial 
+      & $B(k,\mu)$ 
+        & $\{0,\ldots,k\}$
+          & $k\log(1+e^\theta)$ 
+            & $\dfrac{ke^\theta}{(1+e^\theta)}$ 
+              & logit 
+                & $\mu\left(1-\dfrac{\displaystyle \mu}{\displaystyle k}\right)$ 
+                  & 1 \\[3mm]
+    Poisson 
+      & $Poi(\mu)$ 
+        & $\mathbb{N}_0$
+          & $\exp(\theta)$ 
+            & $\exp(\theta)$ 
+              & $\log$ 
+                & $\mu$ 
+                  & 1 \\[2mm]
+    Geometrisch
+      & $\mathit{Geom}(\mu)$ 
+        & $\mathbb{N}_0$
+          & $- \log\left(1 - e^{\theta}\right)$ 
+            & $\dfrac{e^\theta}{(1-e^\theta)}$ 
+              & $ \log\left(\dfrac{\mu}{1+\mu}\right) $ 
+                & $\mu + \mu^2$ 
+                  & 1 \\[2mm]
+    Negative
+      & $NB(\mu,k)$ 
+        & $\mathbb{N}_0$
+          & $- k\log\left(1 - e^{\theta}\right)\!$ 
+            & $ \dfrac{ke^\theta}{(1-e^\theta)} $ 
+              & $ \log\left(\dfrac{\mu}{k+\mu}\right) $ 
+                & $\mu + \dfrac{\displaystyle \mu^2}{\displaystyle k}$
+                  & 1 \\%%[-2mm]
+    Binomial
+      & 
+        & 
+          & 
+            & 
+              & 
+                & 
+                  & \\[2mm]
+\hline
+    Normal 
+      & $N(\mu,\sigma^2)$ 
+        & $\mathbb{R}$
+          & $\theta^2/2$ 
+            & $\theta$ 
+              & identisch
+                & 1 
+                  & $\sigma^2$ \\[2mm]
+    Exponential
+      & $Exp(\mu)$ 
+        & $\mathbb{R}^+$
+          & $-\log(-\theta)$ 
+            & $-1/\theta$ 
+              & reziprok
+                & $\mu^2$ 
+                  & $1$\\ [2mm]   
+    Gamma 
+      & $G(\mu,\nu)$ 
+        & $\mathbb{R}^+$
+          & $-\log(-\theta)$ 
+            & $-1/\theta$ 
+              & reziprok
+                & $\mu^2$ 
+                  & $1/\nu$\\ [2mm]   
+    Inverse 
+      & $IN(\mu,\sigma^2)$ 
+        & $\mathbb{R}^+$
+          & $-\sqrt{-2\theta}$
+            & $\dfrac{-1}{\sqrt{-2\theta}}$ 
+              & quadrat.
+                & $\mu^3$ 
+                  &  $\sigma^2$ \\%%[-2mm]
+    Normal
+      & 
+        & 
+          & 
+            & 
+              & reziprok
+                & 
+                  & \\[1mm]
+      \hline\hline
+    \end{tabular}
+}}
+  \end{center}
+  \caption{Possible distributions for the dependent variable $Y$}
+  \label{tab:distr}
+\end{table}
+\end{comment}
+
+
+\section{Estimation Methods}\label{sec_est}
+
+The estimation approaches for the GPLM are essentially based 
+on the idea that an estimate $\widehat{\Bbeta}$ can be found 
+for known $m(\bullet)$, and an estimate $\widehat{m}(\bullet)$ can be 
+found for known $\Bbeta$. This section introduces two different
+estimation methods, a {\it generalized Speckman } estimator and the classical
+{\it backfitting} approach. A more detailed presentation of these methods can
+be found in \citet{mue:2001} and \citet[][Chapters 4, 5 and 7]{hae:mue:spe:wer:2004}.
+
+Recall the first two conditional moments of $Y$ 
+are specified as
+\begin{eqnarray*}
+   E(Y|\BX,\BT) &=& \mu = G(\eta) = G\{\BX^T\Bbeta+ m(\BT)\}\,,\\
+\Var(Y|\BX,\BT) &=& \sigma^2 V(\mu)\,.
+\end{eqnarray*}
+We will now discuss the estimation of $\Bbeta$ and $m(\bullet)$
+by means of the sample values $\{y_i,\Bx_i,\Bt_i\}$, $i=1,\ldots,n$. 
+It should be pointed out that we focus on the estimation of $\Bbeta$ and $m(\bullet)$.
+The additional scale parameter $\sigma$ can be obtained from
+   \begin{equation}
+\widehat{\sigma}^2 = \frac{1}{n} \sum\limits^n_{i=1} 
+\frac{(y_i -   \widehat{\mu}_i)^2}{V(\widehat{\mu}_i)},
+   \end{equation}
+when we denote $\widehat{\mu}_i = G(\widehat{\eta}_i)$ estimated from $\widehat{\eta}_i=
+\Bx_i^T \widehat{\Bbeta}+ \widehat{m}(\Bt_i)$.
+
+\subsection{Speckman Type Estimation}
+
+The Speckman estimator \citep{speck:88} was originally derived 
+for the PLM. In our setup that means to consider a model with 
+the identity link $G$ and normally distributed error terms:
+$$Y = \BX^T\beta + m(\BT) + \varepsilon\,,\quad \varepsilon\sim
+N(0,\sigma^2)\,.$$
+Taking the conditional expectation w.r.t. $\BT$ and differencing the two
+equations leads to \citep[][Section 7.1]{hae:mue:spe:wer:2004}:
+$$\underbrace{Y - E(Y\vert \BT)}_{\widetilde{Y}} 
+= \big\{\underbrace{\BX - E(\BX\vert \BT)}_{\widetilde{\BX}}\big\}^\top\Bbeta 
++ \underbrace{\varepsilon - E(\varepsilon\vert \BT)}_{\widetilde{\varepsilon}}\,,$$
+i.e. a modified regression equation in $\widetilde{\BX}$ and $\widetilde{Y}$
+that allows to separately estimate the parameter vector $\Bbeta$. The modified
+variables $\widetilde{\BX}$ and $\widetilde{Y}$ are calculated using the
+fact that the conditional expectation $E(\bullet\vert\BT)$ can be estimated
+through a (nonparametric) regression on the explanatory variable $\BT$. 
+
+To formulate the estimation procedure we introduce the following terms based
+on the sample values $\{y_i,\Bx_i,\Bt_i\}$:
+$$\By = \left(\begin{array}{c} y_1\\ \vdots\\ y_n \end{array}\right)\,,\quad
+\CX=\left(\begin{array}{ccc} x_{11} & \ldots & x_{1p}\\ 
+    \vdots & \ddots & \vdots \\ x_{n1} & \ldots &
+    x_{np}\end{array}\right)\,,\quad
+\Bm = \left(\begin{array}{c} m(t_1)\\ \vdots\\ m(t_n) \end{array}\right)$$
+
+If we denote the regression operator (hat matrix) by $\CS$, then Speckman's estimation
+method for the PLM can be summarized as follows:
+\begin{center}
+  \fbox{\parbox{0.9\textwidth}{
+      \centerline{Speckman estimation for the PLM}
+      \hrule
+      \begin{itemize}
+      \item {\it calculate}
+        $$\widetilde{\CX} = (\CI -\CS) \CX \quad\mbox{ and }\quad
+        \widetilde{\By} = (\CI -\CS) \By$$
+      \item {\it estimate $\Bbeta$}
+        $${\widehat\Bbeta}= (\widetilde{\CX}^T\widetilde{\CX})^{-1}
+        \widetilde{\CX}^T \widetilde{\By}$$
+      \item {\it estimate $\Bm$}
+        $$ {\widehat\Bm} = \CS (\By - \CX{\widehat\Bbeta})$$
+      \end{itemize}
+    }}
+\end{center}
+Optionally, the estimation steps for $\Bbeta$ and $\Bm$ can be used as
+updating step in an iteration up to convergence.
+
+In case of a Nadaraya--Watson kernel type regression \citep[][Section
+4.1]{hae:mue:spe:wer:2004}, we consider  the smoother matrix $\CS$ with elements
+\begin{equation}
+  \label{eq_smats}
+\CS_{ij} = \dfrac{ \CK_{\Bh} (\Bt_i-\Bt_j)}
+{\sum\limits_{k=1}^n \CK_{\Bh} (\Bt_k-\Bt_j)},
+\end{equation}
+where $\CK$ denotes a multidimensional kernel function and $\Bh$ the
+respective bandwidth vector (the dimension being equal to the dimension of 
+$\BT$). By $\CK_\Bh$ we abbreviate the componentwise rescaled kernel function
+$$\CK_\Bh(\Bu) %%= \dfrac1\Bh\CK\left(\dfrac{\Bu}{\Bh}\right) 
+=\dfrac1{h_1\cdotp\ldots\cdotp h_q}\CK\left(\dfrac{u_1}{h_1},\ldots,
+\dfrac{u_q}{h_q}\right)$$
+for $q$-dimensional vectors $\Bu$ and $\Bh$. (See 
+Subsection~\ref{subsub_kernel} for more
+details on possible kernel functions.)
+For the modified regression terms this leads to the calculation of
+$$\widetilde \Bx_j = 
+\Bx_j - \dfrac{ \sum\limits_{i=1}^n\CK_{\Bh} (\Bt_i-\Bt_j)\,\Bx_i}%
+{\sum\limits_{k=1}^n \CK_{\Bh} (\Bt_k-\Bt_j)}\quad\mbox{and}\quad
+\widetilde y_j = y_j - \frac{ \sum\limits_{i=1}^n\CK_{\Bh} (\Bt_i-\Bt_j)\,y_i}%
+{\sum\limits_{k=1}^n \CK_{\Bh} (\Bt_k-\Bt_j)}\quad\mbox{for}\
+j=1,\ldots,n\,.$$
+The nonparametric component function of the PLM is thus estimated by
+\begin{equation}
+  \label{eq:mest}
+\widehat{m}_j=\widehat{m}(\Bt_j) = \frac{\sum\limits_{i=1}^n  
+\CK_{\Bh} (\Bt_i-\Bt_j)\,(y_i - \Bx_i^T{\widehat\Bbeta})}{\sum\limits_{i=1}^n
+\CK_{\Bh} (\Bt_i-\Bt_j)}
+\quad\iff\quad \widehat{\Bm}=\CS (\By - \CX{\widehat\Bbeta})\,.  
+\end{equation}
+In an analogous way, estimates of $m(\bullet)$ can be calculated at arbitrary
+design points by replacing $\Bt_j$ in (\ref{eq:mest}).
+
+In the context of a generalized partial linear model (GPLM) we have to take the
+function $G$ (inverse link function) and the distribution of $Y$ into
+account. The estimation method thus combines the estimation algorithm in a GLM
+\citep[IRLS = iteratively reweighted least squares, see][Chapter
+III.24]{mcc:nel:89,mue:2012}
+and the Speckman approach for the PLM.
+
+Generalized linear models (GLMs) are estimated by maximum likelihood (or
+equivalently minimum deviance) estimation. We now denote the individual
+log-likelihood in a GPLM by
+$$ \ell(\mu_i,y_i)=\ell\left(G\left\{\Bx_i^T\beta +
+    m(\Bt_i)\right\}\,,\,y_i\right)$$
+such that estimating for the full sample means to maximize %%the sample log-likelihood
+$\ell(\Bmu,\By) = \sum_{i=1}^n \ell(\mu_i,y_i)\,.$ The difference between the
+GLM and the GPLM is just the nonparametric part $m(\Bt_i)$.
+
+In a GLM, the parameter vector $\Bbeta$ would be estimated by the IRLS
+algorithm through an iterative updating 
+${\widehat\Bbeta}^{new}= (\CX^T \CW \CX)^{-1}
+    \CX^T \CW  \Bz,$
+where $\Bz$ denotes the adjusted dependent variable vector
+$\Bz = \CX\widehat\Bbeta + \CW^{-1} \Bv$. 
+The vector $\Bv$ denotes the vector of the first derivatives of
+$\ell(\Bmu,\By)$
+w.r.t. the indices $\eta_i=\Bx_i^\top\Bbeta$ evaluated at
+$\Bx_i^T{\widehat\Bbeta}$. 
+Analogously, $\CW=\diag(w_{11},\ldots,w_{nn})$ is the diagonal matrix 
+containing the corresponding second derivatives.
+
+In the case of a GPLM, the adjusted dependent variable is extended by the
+nonparametric component:
+\begin{equation}
+  \label{eq_adjusted}
+\Bz = \CX\widehat\Bbeta + \widehat\Bm - \CW^{-1} \Bv,
+\end{equation}
+where $\Bv$ and $\CW$ are defined as before but now evaluated at 
+$\Bx_i^T{\widehat\Bbeta}+\widehat{m}_i$. The elements of the
+smoother matrix $\CS$  have to be modified to 
+\begin{equation}
+  \label{eq_smatb}
+\CS_{ij} = 
+\dfrac{\CK_{\MH} (\Bt_i-\Bt_j)\, w_{ii}}%
+{\sum\limits_{i=1}^n \CK_{\MH} (\Bt_i-\Bt_j)\, w_{ii}}\,,
+\end{equation}
+where we recall that $w_{ii}$ is the $i$-th diagonal element of $\CW$.
+
+The iterative Speckman type estimation algorithm for the GPLM can then be
+summarized by the following calculation in each iteration step:
+\begin{center}
+  \fbox{\parbox{0.9\textwidth}{
+      \centerline{Generalized Speckman estimation for the GPLM}
+      \hrule
+      \begin{itemize}
+      \item {\it calculate (in each step)}
+        $$\widetilde{\CX} = (\CI -\CS) \CX \quad\mbox{ and }\quad
+        \widetilde{\Bz} = \widetilde{\CX}\,\widehat\Bbeta - \CW^{-1}\Bv$$
+      \item {\it updating step for $\Bbeta$}
+        $${\widehat\Bbeta}^{new}= \left(\widetilde{\CX}^T \CW \widetilde{\CX}\right)^{-1}
+        \widetilde{\CX}^T \CW  \widetilde{\Bz}$$
+      \item {\it updating step for $\Bm$}
+        $$ {\widehat\Bm}^{new} = \CS \left(\widetilde{\Bz} - \CX{\widehat\Bbeta}^{new}\right)$$
+      \end{itemize}
+    }}
+\end{center}
+
+It is easy to see, that Speckman's method for the PLM is a special case of
+this generalized algorithm: In the case of a PLM with normal errors
+$\varepsilon \sim N(0,\sigma^2)$ we find the derivatives of the log-likelihoods
+as $v_i= -(y_i - \Bx_i^T\Bbeta - m_j)/\sigma^2$ and $w_{ii}\equiv
+-1/\sigma^2$. Thus the adjusted dependent variable $\widetilde{\Bz}$ equals $\widetilde\By$ and
+the elements of $\CW$ cancel out in ${\widehat\Bbeta}^{new}$ and $\CS$.
+
+
+
+Some further calculations \citep[e.g.][]{mue:2001} show that 
+$\CX\widehat\Bbeta + \widehat\Bm = \CR^S \Bz$
+with 
+\begin{equation} \label{eq_rmats}
+\CR^S =  \widetilde\CX \left(\widetilde\CX^T \CW \widetilde\CX \right)^{-1}
+     \widetilde\CX^T \CW (\CI - \CS) + \CS.
+\end{equation}
+where all terms are evaluated at the estimates at convergence. This means
+that the estimation method is linear (in $\Bz$), thus the trace of the hat
+matrix $\CR^S$ can be used to approximate the degrees of freedom of the model
+estimate:
+$$df^{res}=n-\trace\left(\CR^S\right)$$
+\citep[see e.g.][for an analogous calculation in the backfitting case]{has:tib:90}.
+
+
+\subsection{Backfitting Estimation}
+
+The backfitting method has been suggested as an iterative algorithm
+to fit an additive model \citep[see][]{buj:has:tib:89,has:tib:90}. Its main idea is to
+regress the additive components separately on partial residuals.
+The PLM is a again special case, consisting of only two additive functions. 
+We denote now by  $\CP$ the projection matrix
+$\CP = \CX(\CX^T\CX)^{-1} \CX^T$ from a linear regression model and by 
+$\CS$ the smoother matrix as before.
+Then backfitting  means to resolve
+\begin{eqnarray*}
+  \CX\widehat\Bbeta &=& \CP (\By - \widehat\Bm)\\
+  \widehat\Bm       &=& \CS (\By - \CX\widehat\Bbeta)
+\end{eqnarray*}
+as $\By - \widehat\Bm$ are the residuals from a nonparametric fit
+and $\By - \CX\widehat\Bbeta$ the residuals from a linear regression.
+In this simple case an iteration is not necessary \citep[][Section 5.3]{has:tib:90}
+and the explicit solution is 
+\begin{eqnarray*}
+\widehat\Bbeta &=& \{\CX^T (\CI - \CS) \CX \}^{-1} \CX^T (\CI - \CS) \By,\\
+\widehat\Bm    &=& \CS ( \By -\CX\widehat\Bbeta).
+\end{eqnarray*}
+These estimators differ from the Speckman estimators in only a subtle detail:
+the Speckman estimator for $\Bbeta$ shows $(\CI - \CS)^\top(\CI - \CS)$
+instead of $(\CI - \CS)$.
+
+The extension of the PLM estimation method to the GPLM follows the same idea
+as in the Speckman case: apply the PLM approach using a weighted smoother
+matrix on the adjusted dependent variable \citep[][Section 6.7]{has:tib:90}:
+\begin{center}
+  \fbox{\parbox{0.9\textwidth}{
+      \centerline{Backfitting estimation for the GPLM}
+      \hrule
+      \begin{itemize}
+      \item {\it calculate (in each step)}
+        $$\widetilde{\CX} = (\CI -\CS) \CX \quad\mbox{ and }\quad
+        \widetilde{\Bz} = \widetilde{\CX}\,\widehat\Bbeta - \CW^{-1}\Bv$$
+      \item {\it updating step for $\Bbeta$}
+        $$\widehat\Bbeta^{new}=\left({\CX}^T \CW \widetilde{\CX}\right)^{-1} 
+        {\CX}^T \CW \widetilde{\Bz},$$
+      \item {\it updating step for $\Bm$}
+        $$\widehat\Bm^{new} = \CS \left( \widetilde{\Bz} -\CX\widehat\Bbeta^{new}\right)$$
+      \end{itemize}
+    }}
+\end{center}
+
+As for the generalized Speckman estimation, we also find here
+a linear hat matrix $\CX\widehat\Bbeta + \widehat\Bm = \CR^B \Bz $, this time 
+\begin{equation} \label{eq_rmatb}
+\CR^B =   \widetilde\CX \left(\CX^T \CW \widetilde\CX \right)^{-1}
+     \CX^T \CW (\CI - \CS) + \CS,
+\end{equation}
+\citep[cf.][Section 6.15]{has:tib:90}.
+
+\subsection{Computational Aspects} \label{subsec_compissues}
+
+The estimation approaches presented in Section~\ref{sec_est} are implemented
+in the R package \texttt{gplm}. We refer to some general computational issues
+here while specific examples can be found in the following sections.
+
+\subsubsection{GPLM Iteration}
+\begin{itemize}
+\item[\Triblack] {\it Smoother matrix $\CS$}\ \\
+  The choice of the matrix determines the way of smoothing that is used
+  to estimate the nonparametric component function $m(\bullet)$. Even though we
+  have used the Nadaraya--Watson type smoother for Section~\ref{sec_est} any in
+  R available linear smoother (that is able to incorporate weights) can be used
+  instead. The \texttt{gplm} package covers two possible smoothers:
+  \begin{itemize}
+  \item[$\bullet$] \texttt{kgplm} using Nadaraya--Watson type smoothing:\\[1mm]
+    The Speckman and backfitting estimation methods require to compute terms of the form
+    \begin{equation}\label{eq:convol}
+      \sum_{i=1}^n \delta_{i} \CK_\MH(\Bt_i-\Bt),
+    \end{equation}
+    where the $\delta_i$ may be the $y_i$ or the weight values $w_{ii}$.
+    This computation has to be done at least for
+    all sample observations $\Bt_j$ ($j=1,\ldots,n$) since updated values
+    of $m(\bullet)$ at all observations are required in 
+    the updating step for  $\Bbeta$. Thus $O(n^2)$ operations are 
+    necessary. In addition, for example for presentation purposes
+    it can be useful to estimate the function $m(\bullet)$ on an additional
+    grid. The \texttt{gplm} package provides the function \texttt{convol} to
+    calculate (\ref{eq:convol}). Different kernel functions are possible:
+    product or spherical kernels based on triangle,
+    uniform (rectangular), Epanechnikov, biweight (quartic), 
+    triweight and Gaussian (normal) univariate kernel function (see 
+    Subsection~\ref{subsub_kernel}).
+  \item[$\bullet$] \texttt{sgplm1} using spline smoothing:\\[1mm]
+    This routine uses the \texttt{smooth.spline} function in R, a linear
+    spline smoother which allows the above mentioned incorporation of weights.
+    In contrast to the kernel smoother, only $O(n)$ operations for the
+    smoother plus $O(n\log(n))$ for sorting the data are necessary. On the
+    other hand, this function does only allow for one-dimensional smoothing.
+  \end{itemize}
+\item[\Triblack] {\it Initialization}\ \\
+  The presented iterative algorithms (for the GPLM) require 
+  first an initialization step. Different strategies to initialize the iterative algorithm 
+  are possible:
+  \begin{itemize}
+  \item[$\bullet$] 
+    Start with $\widetilde{\Bbeta}$, $\widetilde{m}(\bullet)$ 
+    from a parametric (GLM) fit. 
+  \item[$\bullet$]
+    Alternatively, start with ${\Bbeta}=0$ and  
+    ${m}(t_j)=G^{-1}(y_j)$  (for example with the 
+    adjustment ${m}_j=G^{-1}\{(y_j+0.5)/2\}$ for binary responses). 
+  \item[$\bullet$]  
+    Backfitting procedures often use ${\Bbeta}=0$ and  
+    ${m}(t_j)\equiv G^{-1}(\overline{y})$. 
+  \end{itemize}
+  In practice, we do not find large differences between the
+  approaches. \texttt{kgplm} and \texttt{sgplm1} use the third variant. It is
+  however possible to set the initial values in a different manner by using
+  the optional parameter \texttt{b.start} and \texttt{m.start}.
+\end{itemize}
+
+\subsubsection{Kernel Functions}\label{subsub_kernel}
+
+The R functions \texttt{kde} (kernel density estimation), \texttt{kreg}
+(kernel regression) and
+\texttt{kgplm} use multidimensional kernel
+functions to implement the smoothing procedure. 
+\begin{itemize}
+\item[\Triblack] {\it Product kernel functions}\\
+The $q$-dimensional product
+kernels are obtained by multiplying one-dimensional kernel functions $K$:
+$$\CK(\Bu) = K(u_1)\cdotp\ldots\cdotp K(u_q)\,.$$
+\item[\Triblack] {\it Spherical kernel functions}\\
+The $q$-dimensional spherical (or radially symmetric)
+kernels are obtained by applying a one-dimensional kernel functions on 
+the Euclidean norm $\|\Bu\|$ of the vector $\Bu$:
+$$\CK(\Bu) = c_{\CK,q} \, K(\|\Bu\|)\,.$$
+The constant $c_{\CK,q}$ is a scaling factor that ensures that the resulting
+function is a density, i.e. integrates to 1.
+\end{itemize}
+
+The following table shows the kernel functions implemented in the package
+\texttt{gplm}. The function $\Ind(\bullet)$ denotes the indicator function 
+and the constant
+$v_q$ denotes the volume of the $q$-dimensional unit sphere:
+$$v_q = \dfrac{\pi^{q/2}}{\Gamma\left(1+q/2\right)}\,.$$
+{%%\small\tabcolsep3pt
+  \begin{center}
+    \begin{tabular}{lll}
+      \hline\hline
+      & one-dimensional & spherical $q$-dimensional \\
+      & $K(u)$ & $\CK(\Bu)$\\
+      \hline\hline
+      &&\\[-3mm]
+      \texttt{triangle} & $(1-|u|)\,\Ind(|u|\le 1)$
+      & $\dfrac{q+1}{v_q}\,(1-\|u\|)\,\Ind(\|u\|\le 1)$\\
+      &&\\[-3mm]
+      \hline
+      &&\\[-3mm]
+      \texttt{uniform} & $\dfrac12\,\Ind(|u|\le 1)$
+      & $\dfrac{1}{v_q}\,\Ind(\|u\|\le 1)$\\
+      &&\\[-3mm]
+      \hline
+      &&\\[-3mm]
+      \texttt{epanechnikov} & $\dfrac34\,(1-u^2)\,\Ind(|u|\le 1)$
+      & $\dfrac{q+2}{2\,v_q}\,(1-\|\Bu\|^2)\,\Ind(\|u\|\le 1)$\\
+      &&\\[-3mm]
+      \hline
+      &&\\[-3mm]
+      \texttt{biweight} & $\dfrac{15}{16}\,(1-u^2)^2\,\Ind(|u|\le 1)$
+      & $\dfrac{(q+2)(q+4)}{8\,v_q}\,(1-\|\Bu\|^2)^2
+      \,\Ind(\|u\|\le 1)$\\
+      &&\\[-3mm]
+      \hline
+      &&\\[-3mm]
+      \texttt{triweight} & $\dfrac{35}{32}\,(1-u^2)^3\,\Ind(|u|\le 1)$
+      & $\dfrac{(q+2)(q+4)(q+6)}{48\,v_q}\,(1-\|\Bu\|^2)^3
+      \,\Ind(\|u\|\le 1)$\\
+      &&\\[-3mm]
+      \hline
+      &&\\[-3mm]
+      \texttt{gaussian} & $\dfrac1{\sqrt{2\pi}}\,\exp(-u^2/2)$
+      & $\dfrac1{(2\pi)^{q/2}}\,\exp(-\|\Bu\|^2/2)$\\
+      &&\\[-3mm]
+      \hline\hline
+    \end{tabular}
+  \end{center}
+}
+Note that in the case of a Gaussian kernel the $q$-dimensional product and
+spherical kernels coincide. For references on these kernel functions see for
+example \citet[][Section 4.2]{sil:86}, \citet[][Section 2.5]{fah:ham:84} 
+and \citet[][Section 4.5 and Appendix B]{wan:jon:95}.
+
+\clearpage
+\section{Examples for Kernel Density Estimation 
+  and Kernel Regression}\label{sec_kdereg}
+
+We start with some simple examples for kernel density and regression
+estimation. First we load the \texttt{airquality} data which are part of the R
+\texttt{base} package. 
+<<>>=
+data(airquality)
+attach(airquality)
+@
+For the variable \texttt{Wind} we estimate the kernel
+density estimator and graph it:
+<<>>=
+library(gplm)
+fh <- kde(Wind)
+plot(fh, type="l", main="Kernel density estimate (KDE)")
+@
+This displays the following figure:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(fh, type="l", main="Kernel density estimate (KDE)")
+@
+\end{center}
+\vspace*{-5mm}
+By default \texttt{kde} calculates the kernel density estimator using the
+quartic (biweight) kernel on an equidistant grid within the range of the
+data. The default bandwidth is calculated by Scott's rule of thumb
+\citep[][Section 6.3]{sco:92} as \texttt{kde} is
+indented to work with multivariate data \citep[][Section
+3.6]{hae:mue:spe:wer:2004}. The estimated bandwidth can be obtained by:
+<<>>=
+fh$bandwidth
+@
+
+The function \texttt{kde} is also able to calculate the density estimate
+on a grid of given vlaues. For example, to add the kernel
+density estimate at the value $x=10$ and $x=15$ to our figure we could type for example:
+<<>>=
+fh.10 <- kde(Wind, grid=c(10,15))
+points(fh.10, col="red", pch=19)
+title("KDE with estimates at x=10, 15 (in red)")
+@
+
+This modifies our figure in the following way:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(fh, type="l")
+points(fh.10, col="red", pch=19)
+title("KDE with estimates at x=10, 15 (in red)")
+@
+\end{center}
+\vspace*{-5mm}
+
+The bandwidth can be modified by setting the \texttt{bandwidth}
+parameter. Also the kernel function could be changed:
+<<>>=
+fh <- kde(Wind, bandwidth=3, kernel="epanechnikov")
+fh$bandwidth
+@
+This provides us with:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(fh, type="l")
+title("KDE with uniform kernel and bandwidth=3")
+@
+\end{center}
+\vspace*{-5mm}
+
+A two-dimensional kernel density estimate is computed in a similar way:
+<<>>=
+fh.biv <- kde(cbind(Wind,Temp))
+@
+To obtain a plot of the resulting density surface requires a little more effort:
+<<>>=
+Wind.grid <- unique(fh.biv$x[,1])  ## extract grids
+Temp.grid <- unique(fh.biv$x[,2])  
+o <- order(fh.biv$x[,2],fh.biv$x[,1])  ## order by 2nd column
+fh2 <- matrix(fh.biv$y[o],length(Wind.grid),length(Temp.grid))
+persp(Wind.grid,Temp.grid,fh2,main="bivariate KDE",
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+@
+The resulting surface is shown as:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+persp(Wind.grid,Temp.grid,fh2,main="bivariate KDE",
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+@
+\end{center}
+\vspace*{-20mm}
+In order to use different grid sizes we could apply for example:
+<<>>=
+Wind.grid <- seq(min(Wind),max(Wind),length=20)  ## define grid
+Temp.grid <- seq(min(Temp),max(Temp),length=40)
+fh.biv <- kde(cbind(Wind,Temp), grid=create.grid(list(Wind.grid,Temp.grid)))
+o <- order(fh.biv$x[,2],fh.biv$x[,1])  ## order by 2nd column
+fh2a <- matrix(fh.biv$y[o],length(Wind.grid),length(Temp.grid))
+persp(Wind.grid,Temp.grid,fh2a,main="bivariate KDE",
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+@
+The now resulting surface shows a finer grid  in the \texttt{Temp} dimension:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+persp(Wind.grid,Temp.grid,fh2a,main="bivariate KDE, different grids",
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+@
+\end{center}
+\vspace*{-20mm}
+An alternative graphical display is a contour plot computed from:
+<<>>=
+contour(Wind.grid,Temp.grid,fh2a, main="KDE Contours")
+@
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+contour(Wind.grid,Temp.grid,fh2a, main="KDE Contours")
+@
+\end{center}
+
+The function \texttt{kreg} implements the (multivariate) Nadaraya--Watson
+estimator for estimating the regression function $m(\Bx)=E(Y|\Bx)$. As a
+univariate regression example we use the regression:
+<<>>=
+mh <- kreg(Wind, Temp)
+plot(Wind,Temp, col="grey", pch="+")
+lines(mh, col="blue", lwd=2)
+title("Data and Nadaraya--Watson regression")
+@
+The default bandwidth is calculated by Scott's rule of thumb. All other
+options are practically identical to \texttt{kde}. The considered code displays the figure:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(Wind,Temp, col="grey", pch="+")
+lines(mh, col="blue", lwd=2)
+title("Data and Nadaraya--Watson regression")
+@
+\end{center}
+\vspace*{-5mm}
+In the same way as before we can estimate bivariate (or higher dimensional)
+regression functions:
+<<>>=
+airquality2 <- airquality[!is.na(Ozone),] ## delete NA's
+detach(airquality)  ## detach previous data
+attach(airquality2)
+bandwidth <- bandwidth.scott(cbind(Wind,Temp))
+mh.biv <- kreg(cbind(Wind,Temp),Ozone, bandwidth=bandwidth)
+Wind.grid <- unique(mh.biv$x[,1])  ## extract grids
+Temp.grid <- unique(mh.biv$x[,2])  
+o <- order(mh.biv$x[,2],mh.biv$x[,1])  ## order by 2nd column
+mh2 <- matrix(mh.biv$y[o],length(Wind.grid),length(Temp.grid))
+persp(Wind.grid,Temp.grid,mh2,main="bivariate KDE",
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+@
+The estimated regression surface is:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+persp(Wind.grid,Temp.grid,mh2,main="bivariate KDE",
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+@
+\end{center}
+\vspace*{-20mm}
+
+\clearpage
+\section{Examples for a Partial Linear Model (PLM)}\label{sec_explm}
+
+To illustrate the PLM we use the data from the Current Population Survey 1985
+in package \texttt{AER}:
+<<>>=
+library(AER)
+data(CPS1985)
+str(CPS1985)  ## show data structure
+attach(CPS1985)
+@
+It is often assumed that the \texttt{log(wage)} of a person depends
+linearly on \texttt{education} and nonlinearly on \texttt{experience}. We can
+check that by estimating a PLM using \texttt{gplm}:
+%%source("/home/marlene/Dev.R/gplm/R/kgplm.R")
+<<>>=
+library(gplm)
+bandwidth <- bandwidth.scott(experience)
+gh <- kgplm(x=cbind(gender,education),t=experience,y=log(wage),h=bandwidth)
+o <- order(experience)  ## sort curve estimate by experience
+plot(experience[o], gh$m[o], type="l")
+title("PLM component function for experience")
+@
+Indeed we find an inverse U-shaped function showing some artefacts (due to
+sparse data) at the right boundary:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(experience[o], gh$m[o], type="l")
+title("PLM component function for experience")
+@
+\end{center}
+\vspace*{-5mm}
+As before we can compute the estimated
+function on a finer grid which also generates a more smooth picture:
+<<>>=
+exp.grid <- seq(min(experience),max(experience),length=200)
+gh2 <- kgplm(x=cbind(gender,education),t=experience,y=log(wage),
+             h=bandwidth,grid=exp.grid)
+plot(exp.grid, gh2$m.grid, type="l", col="blue")
+title("PLM component function for experience (on grid)")
+@
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(exp.grid, gh2$m.grid, type="l", col="blue")
+title("PLM component function for experience (on grid)")
+@
+\end{center}
+\vspace*{-5mm}
+The R function name \texttt{kgplm} indicates that this function is based on
+kernel smoothing. %% (as well as \texttt{kde} and \texttt{kreg}). 
+An alternative to \texttt{kgplm} is the function \texttt{sgplm1} based on
+splines. This function however does only estimate univariate PLM component
+functions. An estimate similar to that by \texttt{kgplm} is found by:
+<<>>=
+gs <- sgplm1(x=cbind(gender,education),t=experience,y=log(wage),df=8)
+o <- order(experience)  ## sort curve estimate by experience
+plot(experience[o], gs$m[o], type="l")
+title("PLM component function for experience (sgplm1)")
+@
+%%This yields the figure:
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(experience[o], gs$m[o], type="l")
+title("PLM component function for experience (sgplm1)")
+@
+\end{center}
+\vspace*{-5mm}
+
+Using \texttt{kgplm} we can also estimate a bivariate PLM component function
+for education and experience. Technically this follows the examples for a
+bivariate kernel density or regression. The function \texttt{kgplm} does
+however not automatically define a grid. We therefore specify the grid first
+and then display the function using \texttt{persp} as already shown:
+<<>>=
+bandwidth <- 1.5*bandwidth.scott(cbind(education,experience))
+edu.grid <- seq(min(education),max(education),length=25)
+exp.grid <- seq(min(experience),max(experience),length=25)
+grid  <- create.grid(list(edu.grid,exp.grid))
+
+gh <- kgplm(x=(gender=="female"),t=cbind(education,experience),y=log(wage),
+            h=bandwidth,grid=grid)
+
+o <- order(grid[,2],grid[,1])
+mh <- matrix(gh$m.grid[o],length(edu.grid),length(exp.grid))
+persp(edu.grid,exp.grid,mh,
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+title("bivariate PLM component function")
+@
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+persp(edu.grid,exp.grid,mh,
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+title("bivariate PLM component function")
+@
+\end{center}
+\vspace*{-5mm}
+
+
+\clearpage
+\section{Examples for a Generalized Partial Linear Model (GPLM)}\label{sec_exgplm}
+
+<<echo=FALSE>>=
+detach(CPS1985)  ## detach previous data 
+@
+
+For illustrating the GPLM we use another dataset from the \texttt{AER} package,
+the data on extramarital affairs. In order to consider a binary response we
+transform the number of affairs to a binary indicator variable \texttt{y}:
+<<>>=
+library(AER)
+data(Affairs)
+str(Affairs)  ## show data structure
+attach(Affairs)
+y <- (affairs > 0)
+@
+The GPLM estimation is again very similar to the PLM estimation. Basically,
+the only main difference is the specification of the distribution family for
+the response and the respective link function. We are now estimate a logit-type
+GPLM for the response \texttt{y}:
+%%source("/home/marlene/Dev.R/gplm/R/glm.lld.R")
+<<>>=
+library(gplm)
+bandwidth <- 1.5*bandwidth.scott(age)
+age.grid <- seq(min(age),max(age),length=200)
+gh <- kgplm(x=cbind(gender,education,yearsmarried),t=age,y=y,h=bandwidth,
+            grid=age.grid,family="bernoulli",link="logit")
+plot(age.grid, gh$m.grid, type="l")
+title("GPLM component function for age")
+@
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+plot(age.grid, gh$m.grid, type="l")
+title("GPLM component function for age")
+@
+\end{center}
+\vspace*{-5mm}
+Alternatively we can now use \texttt{sgplm1} again and compare both estimates:
+<<>>=
+gs <- sgplm1(x=cbind(gender,education,yearsmarried),t=age,y=y,df=7,
+             grid=age.grid,family="bernoulli",link="logit")
+ylim <- range(gh$m.grid, gs$m.grid)
+plot(age.grid, gh$m.grid, type="l", ylim=ylim)
+lines(age.grid, gs$m.grid, col="seagreen")
+title("GPLM component function for age (kgplm vs. sgplm1)")
+legend("topright",c("kgplm","sgplm1"),lwd=1,col=c("black","seagreen"))
+@
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.45\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+ylim <- range(gh$m.grid, gs$m.grid)
+plot(age.grid, gh$m.grid, type="l", ylim=ylim)
+lines(age.grid, gs$m.grid, col="seagreen")
+title("GPLM component function for age (kgplm vs. sgplm1)")
+legend("topright",c("kgplm","sgplm1"),lwd=1,col=c("black","seagreen"))
+@
+\end{center}
+\vspace*{-5mm}
+
+The previous figures indicated that extramarital affairs are less likely for
+higher age. This changes if we estimate a bivariate GPLM component
+function. The following figure shows that the propensity varies with
+\texttt{age} and \texttt{yearsmarried}:
+<<biv.gplm,echo=FALSE>>=
+bandwidth <- 1.5*bandwidth.scott(cbind(age,yearsmarried))
+age.grid <- seq(min(age),max(age),length=25)
+ym.grid <- seq(min(yearsmarried),max(yearsmarried),length=25)
+grid  <- create.grid(list(age.grid,ym.grid))
+
+gh <- kgplm(x=(gender=="female"),t=cbind(age,yearsmarried),y=y,
+            h=bandwidth,grid=grid,family="bernoulli",link="logit")
+
+o <- order(grid[,2],grid[,1])
+mh <- matrix(gh$m.grid[o],length(age.grid),length(ym.grid))
+persp(age.grid,ym.grid,mh,
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+title("bivariate GPLM component function")
+@
+\vspace*{-5mm}
+\setkeys{Gin}{width=0.6\textwidth}
+\begin{center}
+<<fig=TRUE,echo=FALSE>>=
+persp(age.grid,ym.grid,mh,
+      theta=30,phi=30,expand=0.5,col="lightblue",shade=0.5)
+title("bivariate GPLM component function")
+@
+\end{center}
+\vspace*{-5mm}
+
+The following code was used to generate this figure:
+<<fig=FALSE,echo=TRUE>>=
+<<biv.gplm>>
+@
+
+\clearpage
+\addcontentsline{toc}{section}{References}
+%%\pdfbookmark[0]{References}{references}
+\bibliography{gplm}
+
+
+\end{document}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

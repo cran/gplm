@@ -1,16 +1,22 @@
-"kgplm" <- function(x,t,y,h,family,link,
-                    b.start=NULL,m.start=NULL,grid=NULL,m.grid.start=NULL,
+"kgplm" <- function(x,t,y,h,family="gaussian",link="identity",
+                    b.start=NULL,m.start=NULL,grid=NULL, 
                     offset=0,method="speckman",sort=TRUE,weights=1,
                     weights.trim=1,weights.conv=1,max.iter=25,eps.conv=1e-8,
                     kernel="biweight",kernel.product=TRUE,verbose=FALSE){
 
-  kernel.p <- 2; kernel.q <- 2  ## biweight kernel 
-  if(kernel=="triangle"){                      kernel.p <- kernel.q <- 1 }    
-  if(kernel=="uniform"){                       kernel.p <- 1; kernel.q <- 0 } 
-  if(kernel=="epanechnikov"){                  kernel.p <- 2; kernel.q <- 1 } 
-  if(kernel=="biweight" || kernel=="quartic"){ kernel.p <- 2; kernel.q <- 2 } 
-  if(kernel=="triweight"){                     kernel.p <- 2; kernel.q <- 3 } 
-  if(kernel=="gaussian"|| kernel=="normal"){   kernel.p <- 0; kernel.q <- 0 }
+  if (kernel=="triangular"){ kernel <- "triangle" }
+  if (kernel=="rectangle" || kernel=="rectangular"){ kernel <- "uniform" }
+  if (kernel=="quartic"){ kernel <- "biweight" }
+  if (kernel=="normal"){  kernel <- "gaussian" }
+
+  kernel.names <- c("triangle","uniform","epanechnikov","biweight",
+                    "triweight","gaussian")
+  pp <- c(1,2,2,2,2,0)
+  qq <- c(1,0,1,2,3,NA)
+  names(pp) <- names(qq) <- kernel.names
+
+  kernel.p <- pp[kernel]
+  kernel.q <- qq[kernel]
 
   x <- as.matrix(x)
   t <- as.matrix(t)
@@ -20,7 +26,7 @@
   p <- ncol(x)
   q <- ncol(t)
 
-  if (length(h)==1){  h  <- rep(h,q) }##matrix(h,1,q) }
+  if (length(h)==1){  h  <- rep(h,q) }
 
   if (length(weights)==1){ weights <- rep(weights,n) }
   if (length(weights.trim)==1){ weights.trim <- rep(weights.trim,n) }
@@ -29,7 +35,7 @@
 
   n.grid <- 0
   m.grid <- NULL
-  havegrid<- !is.null(grid)
+  havegrid <- !is.null(grid)
   if (havegrid) {
     grid <- as.matrix(grid)
     n.grid <- nrow(grid)
@@ -52,7 +58,6 @@
       or.grid <- order(grid[,1]) 
       ro.grid <- order((1:n.grid)[or.grid])
       grid <- as.matrix(grid[or.grid,])
-      if (!missing(m.grid.start)) { m.grid.start <- as.matrix(m.grid.start[or,]) }
     }
   }
 
@@ -65,7 +70,6 @@
   t<-t(t(t)/h)
   if (havegrid){
     grid<-t(t(grid)/h)
-    if (missing(m.grid.start)) { m.grid.start <- rep(0,n.grid) }
   }
 
   it <- 0
@@ -81,35 +85,30 @@
     }
     
     ll <- glm.lld(xb+m.start,y,family=family,link=link)
-    zm <- m.start-ll$ll1/ll$ll2
+    zm <- m.start-ll$ll1.2 ## ll$ll1/ll$ll2
     z  <- xb+zm
     wnew <- as.vector(weights* ll$ll2)
-    
+
     tmp <- convol(t,y=as.matrix(cbind(one,zm,z,x))*as.vector(wnew),
                   p=kernel.p,q=kernel.q,product=kernel.product,sort=FALSE)
     denom <- tmp[,1]
     m <- tmp[,2]/denom
-    ##print(data.frame(tmp[,1:2]/h,z,xb,m.start,y,ll)[1:10,])
     xnew <- as.matrix( x-tmp[,4:ncol(tmp)]/denom )
     znew <- as.matrix( z-tmp[,3]/denom )
     
     if (havegrid){
-      tmp <- convol(t,grid=grid,y=cbind(one,zm)*as.vector(wnew),
-                    p=kernel.p,q=kernel.q,product=kernel.product,sort=FALSE)
-      ##print(dim(tmp))
-      m.grid <- tmp[,2]/tmp[,1]
+      wnew.grid <- wnew  ## save for later computation of m.grid
     }
     
     if (method=="backfitting"){ 
-      wnew<- x*as.vector(weights.trim*weights*ll$ll2)
+      wnew <- x*as.vector(weights.trim*weights*ll$ll2)
     }
     else{
-      wnew<- xnew*as.vector(weights.trim*weights*ll$ll2)
+      wnew <- xnew*as.vector(weights.trim*weights*ll$ll2)
     }
     
-    B  <- t(wnew) %*% xnew
-    ##print(B)
-    bv <- chol2inv(chol(-B))
+    B  <- t(wnew) %*% xnew  ##; print(B)
+    bv <- solve(-B) 
     b  <- solve(B,t(wnew) %*% znew)
 
     eta <- xb+m
@@ -122,7 +121,7 @@
     chgm <- sqrt( sum(dm*dm)/sum(m.start*m.start) )
 
     if (it==1){
-      stop.crit<- FALSE
+      stop.crit <- FALSE
     }
     else{
       stop.crit <- ( ((chgb<eps.conv)&(chgm<eps.conv)) | (chgd<eps.conv) )
@@ -136,10 +135,24 @@
     b.start <- b
     m.start <- m
     dev.start <- dev
-    xb<- x %*% b.start+offset
-    if (havegrid==1) { m.grid.start <- m.grid }
+    xb <- x %*% b.start+offset
   }
-  
+
+  if (sort) { 
+    m <- m[ro]
+  }
+
+  ## compute m on grid
+  if (havegrid){
+    tmp <- convol(t,grid=grid,y=cbind(one,zm)*as.vector(wnew.grid),
+                  p=kernel.p,q=kernel.q,product=kernel.product,sort=FALSE)
+    m.grid <- tmp[,2]/tmp[,1]
+    if (sort) { 
+      m.grid <- m.grid[ro.grid]
+    }
+  }
+
+  ## compute df (residuals)
   tmp  <- convol(t,y=(xnew*as.vector(weights* ll$ll2)))
   xnew <- xnew-tmp/denom
   ##denom <- denom*n*prod(h)
@@ -153,7 +166,6 @@
   ##print(sum(diag(bv %*% tmp)))
   ##print(kconst*sum(as.vector(weights* ll$ll2)/denom))
 
-  m<-m[ro]
   return(list(b=b,bv=bv,m=m,m.grid=m.grid,it=it,df.residual=df,deviance=dev,aic=aic))
 }
 

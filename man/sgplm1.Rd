@@ -10,9 +10,9 @@
   only for a 1-dimensional nonparametric function. 
 }
 \usage{
-sgplm1(x, t, y, spar, family, link,
+sgplm1(x, t, y, spar, df=4, family, link,
        b.start=NULL, m.start=NULL, grid = NULL, offset = 0, 
-       method = "speckman", sort = TRUE, weights = 1, weights.trim = 1, 
+       method = "speckman", weights = 1, weights.trim = 1, 
        weights.conv = 1, max.iter = 25, eps.conv = 1e-8,
        verbose = FALSE, ...)
 }
@@ -22,6 +22,8 @@ sgplm1(x, t, y, spar, family, link,
   \item{y}{n x 1 vector, responses}
   \item{t}{n x 1 matrix, data for nonparametric part}
   \item{spar}{scalar smoothing parameter, as in \code{\link{smooth.spline}}}
+  \item{df}{scalar equivalent number of degrees of freedom (trace of
+          the smoother matrix), as in \code{\link{smooth.spline}}}
   \item{family}{text string, family of distributions (e.g.
     "gaussian" or "bernoulli", see details for \code{\link{glm.ll}})}
   \item{link}{text string, link function (depending on family,
@@ -31,7 +33,6 @@ sgplm1(x, t, y, spar, family, link,
   \item{grid}{m x q matrix, where to calculate the nonparametric function (default = t)}
   \item{offset}{offset}
   \item{method}{"speckman" or "backfit"}
-  \item{sort}{sort data (default=TRUE)}
   \item{weights}{binomial weights}
   \item{weights.trim}{trimming weights for fitting the linear part}
   \item{weights.conv}{weights for convergence criterion}

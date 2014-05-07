@@ -25,6 +25,7 @@ glm.lld(eta, y, family="gaussian", link="identity", k=1)
   List with components:
   \item{ll1}{n x 1, vector of first derivatives}
   \item{ll2}{n x 1, vector of second derivatives}
+  \item{ll1.2}{n x 1, ratio \code{ll1/ll2}}
 }
 %%\references{}
 \author{Marlene Mueller}

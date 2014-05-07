@@ -1,13 +1,19 @@
 "kde" <- function(x,bandwidth=NULL,grid=TRUE,kernel="biweight",
                   product=TRUE,sort=TRUE){
 
-  p <- 2; q <- 2  ## biweight kernel 
-  if(kernel=="triangle"){                      p <- q <- 1 }    
-  if(kernel=="uniform"){                       p <- 1; q <- 0 } 
-  if(kernel=="epanechnikov"){                  p <- 2; q <- 1 } 
-  if(kernel=="biweight" || kernel=="quartic"){ p <- 2; q <- 2 } 
-  if(kernel=="triweight"){                     p <- 2; q <- 3 } 
-  if(kernel=="gaussian"|| kernel=="normal"){   p <- 0; q <- 0 }
+  if (kernel=="triangular"){ kernel <- "triangle" }
+  if (kernel=="rectangle" || kernel=="rectangular"){ kernel <- "uniform" }
+  if (kernel=="quartic"){ kernel <- "biweight" }
+  if (kernel=="normal"){  kernel <- "gaussian" }
+
+  kernel.names <- c("triangle","uniform","epanechnikov","biweight",
+                    "triweight","gaussian")
+  pp <- c(1,2,2,2,2,0)
+  qq <- c(1,0,1,2,3,NA)
+  names(pp) <- names(qq) <- kernel.names
+
+  p <- pp[kernel]
+  q <- qq[kernel]
 
   x <- as.matrix(x)  ## nxd
   n <- nrow(x)
@@ -62,14 +68,7 @@
 ##  }
 
   if (missing(bandwidth)) {
-    if (p > 0){  ## non-gaussian
-      fac <- kernel.constants(p,q,d)$d0 / (1/(2*sqrt(pi))^d) ^(1/(d+4))
-    }else{       ## gaussian
-      fac <- 1
-    }
-    s <- rbind( apply(x,2,sd), diff( apply(x,2,quantile,c(0.25,0.75)) )/1.349 )
-    s <- apply(s,2,min)
-    bandwidth <- fac *s* n^(-1/(d+4)) ## Scott's ROT
+    bandwidth <- bandwidth.scott(x, kernel=kernel, product=product)
   }
 
   fh <- convol(x,bandwidth,grid=grid,p=p,q=q,product=product,sort=FALSE)/ n
@@ -81,4 +80,4 @@
     return(list(x=grid,y=fh,bandwidth=bandwidth))
   }
 }
-  
+
