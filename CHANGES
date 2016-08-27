@@ -1,3 +1,8 @@
+New in Version 0.7-3 (compared to 0.7-2):
+------------------------------------------------------------------
+- vignette adjusted (old LaTeX 2.09 commands replaced)
+- kernel.constants revised (works now with arbitrary dimension d)
+
 New in Version 0.7-2 (compared to 0.7-1):
 ------------------------------------------------------------------
 - stability changes in 'glm.lld', 'glm.link', 'kgplm', 'sgplm1'

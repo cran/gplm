@@ -9,7 +9,7 @@ kernel.constants(kernel = "biweight", d = 1, product = TRUE)
 }
 \arguments{
   \item{kernel}{text string, see \code{\link{kernel.function}}}
-  \item{d}{integer (dimension of the kernel, d <= 4)}
+  \item{d}{integer (dimension of the kernel)}
   \item{product}{(if d>1) product or spherical kernel}
 }
 \details{

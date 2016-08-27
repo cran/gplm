@@ -1,2 +1,3 @@
 import("AER")
+importFrom("stats", "coef", "dnorm", "fitted", "lm", "pnorm","predict", "qnorm", "quantile", "sd", "smooth.spline")
 export( "kbackfit","convol", "create.grid", "kde", "kreg", "kgplm", "sgplm1", "glm.link", "glm.inverse.link", "glm.ll", "glm.lld", "kernel.constants", "kernel.function", "bandwidth.scott" )

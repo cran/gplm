@@ -32,10 +32,11 @@
     }
     if (p==2){
       m2 <- 1/(2*q+d+2)
-      if (q==0){ n2 <- 1/volume.d }  ## uniform
-      if (q==1){ n2 <- (4+2*d)/((4+d)*volume.d)}  ## epanechnikov
-      if (q==2){ n2 <- c(5/7, 9/(5*pi), 35/(22*pi), 24/(5*pi^2), 2835/(572*pi^2),120/(7*pi^3))[d]}  ## biweight
-      if (q==3){ n2 <- c(350/429, 16/(7*pi), 315/(143*pi), 50/(7*pi^2), 3465/(442*pi^2),200/(7*pi^3))[d]}  ## triweight
+      if (q==0){ fac <- 1 }               ## uniform
+      if (q==1){ fac <- 2*(d+2)/(d+4) }   ## epanechnikov
+      if (q==2){ fac <- 6*(d+2)*(d+4)/((d+6)*(d+8)) }                ## biweight
+      if (q==3){ fac <- 20*(d+2)*(d+4)*(d+6)/((d+8)*(d+10)*(d+12)) } ## triweight
+      n2 <- fac/volume.d
     }
     d0 <- (n2/(m2^2))^(1/(d+4))
   }

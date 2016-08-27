@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{scrartcl}
+\documentclass[fontsize=12pt,a4paper]{scrartcl}
 
 \parskip5pt
 \parindent0pt
@@ -240,13 +240,13 @@
 \def\Grey#1{{\begin{color}{grey}#1\end{color}}}
 
 \def\Gray#1{{\begin{color}{gray}#1\end{color}}}
-\def\Triblack{{\large\bf{$\RHD$}}}
+\def\Triblack{{\large\textbf{$\RHD$}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 \title{An Introduction to the Estimation of GPLMs and Data Examples for
-  the R {\tt gplm} Package}
+  the R \texttt{gplm} Package}
 \author{Marlene M\"uller}
 %%\date{{\normalsize This version: \today}}
 \date{{April 2014}}
@@ -262,7 +262,7 @@ as
 $$E (Y\vert \BX) = G(\BX^T\beta ),$$
 where $ Y$ is the dependent variable, $\BX$ a vector of explanatory
 variables, $ \Bbeta$ the unknown parameter vector and $ G(\bullet)$ a known
-function (the inverse link function). The {\it generalized partial linear 
+function (the inverse link function). The \textit{generalized partial linear 
 model} (GPLM) extends this GLM by a nonparametric component:
 $$E(Y\vert \BX,\BT) = G\{\BX^T\beta + m(\BT)\}.$$ 
 Here, it is assumed that 
@@ -291,12 +291,12 @@ Possible distributions for $Y$ are for example \citep{mcc:nel:89}:
 It is easy to see that GPLM covers other semi-non-parametric models, 
 as for example:
 \begin{itemize}
-\item the {\it partial linear model} (PLM), i.e. 
+\item the \textit{partial linear model} (PLM), i.e. 
   $ Y = \BX^T\Bbeta + m(\BT)+ \varepsilon$ with $ \varepsilon \sim
   N(0,\sigma^2)$ implying $ E (Y\vert \BX,\BT) = \BX^T\Bbeta +m(\BT)$ and $
   \Var(Y\vert \BX,\BT) = \sigma^2$,
   \citep{speck:88, rob:88b}.
-\item the {\it generalized additive model} (GAM) with a linear and a single
+\item the \textit{generalized additive model} (GAM) with a linear and a single
     nonparametric component function, i.e.
   $E(Y\vert \BX,\BT) = G\{\BX^T\beta +m(\BT)\}$ \citep{has:tib:90}.
 \end{itemize}
@@ -429,8 +429,8 @@ The estimation approaches for the GPLM are essentially based
 on the idea that an estimate $\widehat{\Bbeta}$ can be found 
 for known $m(\bullet)$, and an estimate $\widehat{m}(\bullet)$ can be 
 found for known $\Bbeta$. This section introduces two different
-estimation methods, a {\it generalized Speckman } estimator and the classical
-{\it backfitting} approach. A more detailed presentation of these methods can
+estimation methods, a \textit{generalized Speckman } estimator and the classical
+\textit{backfitting} approach. A more detailed presentation of these methods can
 be found in \citet{mue:2001} and \citet[][Chapters 4, 5 and 7]{hae:mue:spe:wer:2004}.
 
 Recall the first two conditional moments of $Y$ 
@@ -483,13 +483,13 @@ method for the PLM can be summarized as follows:
       \centerline{Speckman estimation for the PLM}
       \hrule
       \begin{itemize}
-      \item {\it calculate}
+      \item \textit{calculate}
         $$\widetilde{\CX} = (\CI -\CS) \CX \quad\mbox{ and }\quad
         \widetilde{\By} = (\CI -\CS) \By$$
-      \item {\it estimate $\Bbeta$}
+      \item \textit{estimate $\Bbeta$}
         $${\widehat\Bbeta}= (\widetilde{\CX}^T\widetilde{\CX})^{-1}
         \widetilde{\CX}^T \widetilde{\By}$$
-      \item {\it estimate $\Bm$}
+      \item \textit{estimate $\Bm$}
         $$ {\widehat\Bm} = \CS (\By - \CX{\widehat\Bbeta})$$
       \end{itemize}
     }}
@@ -584,13 +584,13 @@ summarized by the following calculation in each iteration step:
       \centerline{Generalized Speckman estimation for the GPLM}
       \hrule
       \begin{itemize}
-      \item {\it calculate (in each step)}
+      \item \textit{calculate (in each step)}
         $$\widetilde{\CX} = (\CI -\CS) \CX \quad\mbox{ and }\quad
         \widetilde{\Bz} = \widetilde{\CX}\,\widehat\Bbeta - \CW^{-1}\Bv$$
-      \item {\it updating step for $\Bbeta$}
+      \item \textit{updating step for $\Bbeta$}
         $${\widehat\Bbeta}^{new}= \left(\widetilde{\CX}^T \CW \widetilde{\CX}\right)^{-1}
         \widetilde{\CX}^T \CW  \widetilde{\Bz}$$
-      \item {\it updating step for $\Bm$}
+      \item \textit{updating step for $\Bm$}
         $$ {\widehat\Bm}^{new} = \CS \left(\widetilde{\Bz} - \CX{\widehat\Bbeta}^{new}\right)$$
       \end{itemize}
     }}
@@ -654,13 +654,13 @@ matrix on the adjusted dependent variable \citep[][Section 6.7]{has:tib:90}:
       \centerline{Backfitting estimation for the GPLM}
       \hrule
       \begin{itemize}
-      \item {\it calculate (in each step)}
+      \item \textit{calculate (in each step)}
         $$\widetilde{\CX} = (\CI -\CS) \CX \quad\mbox{ and }\quad
         \widetilde{\Bz} = \widetilde{\CX}\,\widehat\Bbeta - \CW^{-1}\Bv$$
-      \item {\it updating step for $\Bbeta$}
+      \item \textit{updating step for $\Bbeta$}
         $$\widehat\Bbeta^{new}=\left({\CX}^T \CW \widetilde{\CX}\right)^{-1} 
         {\CX}^T \CW \widetilde{\Bz},$$
-      \item {\it updating step for $\Bm$}
+      \item \textit{updating step for $\Bm$}
         $$\widehat\Bm^{new} = \CS \left( \widetilde{\Bz} -\CX\widehat\Bbeta^{new}\right)$$
       \end{itemize}
     }}
@@ -682,7 +682,7 @@ here while specific examples can be found in the following sections.
 
 \subsubsection{GPLM Iteration}
 \begin{itemize}
-\item[\Triblack] {\it Smoother matrix $\CS$}\ \\
+\item[\Triblack] \textit{Smoother matrix $\CS$}\ \\
   The choice of the matrix determines the way of smoothing that is used
   to estimate the nonparametric component function $m(\bullet)$. Even though we
   have used the Nadaraya--Watson type smoother for Section~\ref{sec_est} any in
@@ -714,7 +714,7 @@ here while specific examples can be found in the following sections.
     smoother plus $O(n\log(n))$ for sorting the data are necessary. On the
     other hand, this function does only allow for one-dimensional smoothing.
   \end{itemize}
-\item[\Triblack] {\it Initialization}\ \\
+\item[\Triblack] \textit{Initialization}\ \\
   The presented iterative algorithms (for the GPLM) require 
   first an initialization step. Different strategies to initialize the iterative algorithm 
   are possible:
@@ -743,11 +743,11 @@ The R functions \texttt{kde} (kernel density estimation), \texttt{kreg}
 \texttt{kgplm} use multidimensional kernel
 functions to implement the smoothing procedure. 
 \begin{itemize}
-\item[\Triblack] {\it Product kernel functions}\\
+\item[\Triblack] \textit{Product kernel functions}\\
 The $q$-dimensional product
 kernels are obtained by multiplying one-dimensional kernel functions $K$:
 $$\CK(\Bu) = K(u_1)\cdotp\ldots\cdotp K(u_q)\,.$$
-\item[\Triblack] {\it Spherical kernel functions}\\
+\item[\Triblack] \textit{Spherical kernel functions}\\
 The $q$-dimensional spherical (or radially symmetric)
 kernels are obtained by applying a one-dimensional kernel functions on 
 the Euclidean norm $\|\Bu\|$ of the vector $\Bu$:
