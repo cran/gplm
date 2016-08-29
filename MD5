@@ -1,5 +1,5 @@
-2508f05f8b5342d46deb6ae953e38394 *CHANGES
-57d3a4d35698494e7fedeeac1ff562f5 *DESCRIPTION
+d5e839db1006888731b663a5266a5b89 *CHANGES
+9dd4fb11fe1e5d784efd384537f15867 *DESCRIPTION
 98a73a989d4263815f45c738c3e5bcc5 *NAMESPACE
 a937109526f7e7cfc01e76eb4fb152b9 *R/bandwidth.scott.R
 784ac1776686eed2290d99b39a3b5f75 *R/convol.R
@@ -17,8 +17,8 @@ b156a36443c9b9f79d076d53f285f883 *R/kgplm.R
 75aa3408e2736c2d7d41c9aad4686bab *R/sgplm1.R
 1d8a62a544d19fbdab21ea326dda5dfb *R/zzz.R
 48760fb87bb091a92d4637dd0c99a212 *build/vignette.rds
-fb22141663786b2eee0faab7de96dc8e *inst/doc/gplm-examples.R
-5cd85e55a76702ab8b586369a1d2ce90 *inst/doc/gplm-examples.Rnw
+08e033ff6095ddb0bb2872121aa1da56 *inst/doc/gplm-examples.R
+1f592962f56c7b326ce0f58efd040a6b *inst/doc/gplm-examples.Rnw
 2b26af9b293496a9e7ef92ce31d8f7af *inst/doc/gplm-examples.pdf
 ff1c4b8ed33cb73c72c54650684c3268 *man/bandwidth.scott.Rd
 b6ea63a5169addc2ea50af46232fec73 *man/convol.Rd
@@ -35,5 +35,5 @@ eb00039b8be1d151a61710cf8640c970 *man/kernel.constants.Rd
 7b37f6548fc4cda5cb59d72628398f56 *man/kreg.Rd
 4d5f25cacfcc101808cb591fa9d09887 *man/sgplm1.Rd
 2f3367cb63888d09c309c799d4644faf *src/kernconv.c
-5cd85e55a76702ab8b586369a1d2ce90 *vignettes/gplm-examples.Rnw
+1f592962f56c7b326ce0f58efd040a6b *vignettes/gplm-examples.Rnw
 19aea5021c3420bab9ab2628fcbecbfb *vignettes/gplm.bib

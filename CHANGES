@@ -1,4 +1,4 @@
-New in Version 0.7-3 (compared to 0.7-2):
+New in Version 0.7-4 (compared to 0.7-2):
 ------------------------------------------------------------------
 - vignette adjusted (old LaTeX 2.09 commands replaced)
 - kernel.constants revised (works now with arbitrary dimension d)

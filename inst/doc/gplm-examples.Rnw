@@ -24,6 +24,7 @@
 \hypersetup{linkcolor=darkblue}
 \hypersetup{urlcolor=blue}
 
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
 \bibliographystyle{dcu}
 \SweaveOpts{eps=true}
 
